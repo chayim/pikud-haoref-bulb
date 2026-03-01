@@ -1,7 +1,6 @@
 import httpx
 from loguru import logger
-
-from shaboref.types import PikudEntry
+from pikud_haoref_bulb.types import PikudEntry
 
 
 class Requester:
@@ -19,9 +18,9 @@ class Requester:
         "Sec-GPC": "1",
     }
 
-    async def get_current(self, city: str, lang: str = "he", mode: int = 1, timeout: float = 60.0):
+    async def get_current(self, zone: str, lang: str = "he", mode: int = 1, timeout: float = 60.0):
 
-        p = {"lang": lang, "mode": mode, "city_0": city}
+        p = {"lang": lang, "mode": mode, "city_0": zone}
         try:
             with httpx.Client(
                 headers=self._headers_,

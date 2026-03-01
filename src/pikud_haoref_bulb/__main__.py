@@ -3,9 +3,8 @@ from typing import Any
 
 import click
 from loguru import logger
-
-from shaboref.notify import Notify
-from shaboref.requester import Requester
+from pikud_haoref_bulb.notify import Notify
+from pikud_haoref_bulb.requester import Requester
 
 
 async def _poll_loop(requester: Requester, zone: str, delay: int) -> None:
@@ -22,11 +21,11 @@ async def _status_loop(status: list[Any], notify: Notify) -> None:
         await asyncio.sleep(1)
 
 
-async def _async_main(zone: str, delay: int) -> None:
-    logger.info("starting shaboref")
+async def _async_main(zone: str, delay: int, bulbs: str) -> None:
+    logger.info("starting pikud_haoref_bulb")
     status: list[Any] = []
     requester = Requester(status)
-    notify = Notify()
+    notify = Notify(bulbs.split(","))
     await asyncio.gather(
         _poll_loop(requester, zone, delay),
         _status_loop(status, notify),
@@ -35,9 +34,12 @@ async def _async_main(zone: str, delay: int) -> None:
 
 @click.command()
 @click.option("--city", envvar="PIKUD_HAOREF_ZONE", required=True, help="pikud haoref zone to monitor")
-@click.option("--delay", envvar="POLLING_SECONDS", default=60, type=int, help="polling interval (seconds) for pikud haoref api")
-def main(city: str, delay: int) -> None:
-    asyncio.run(_async_main(city, delay))
+@click.option(
+    "--delay", envvar="POLLING_SECONDS", default=90, type=int, help="polling interval (seconds) for pikud haoref api"
+)
+@click.option("--bulbs", envvar="BULB_IPS", type=str, required=True, help="comma separated list of yeelight bulb IPs")
+def main(city: str, delay: int, bulbs: str) -> None:
+    asyncio.run(_async_main(city, delay, bulbs))
 
 
 if __name__ == "__main__":

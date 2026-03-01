@@ -3,14 +3,15 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project]
-name = "shaboref"
-version = "0.1.0"
+name = "pikud-haoref-bulb"
+version = "0.2.1"
 requires-python = ">=3.12"
 dependencies = [
     "click>=8.1",
     "h2>=4.3.0",
     "httpx>=0.27",
     "loguru>=0.7.3",
+    "yeelight>=0.7.16",
 ]
 
 [dependency-groups]
@@ -22,7 +23,7 @@ dev = [
 ]
 
 [tool.hatch.build.targets.wheel]
-packages = ["src/shaboref"]
+packages = ["src/pikud_haoref_bulb"]
 
 [tool.ruff]
 src = ["src", "tests"]

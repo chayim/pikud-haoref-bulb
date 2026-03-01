@@ -15,4 +15,4 @@ RUN uv build --wheel && uv pip install --system dist/*.whl
 
 FROM python:${PYTHON_VERSION}
 COPY --from=builder /usr/local /usr/local
-ENTRYPOINT ["python", "-m", "shaboref"]
+ENTRYPOINT ["python", "-m", "pikud_haoref_bulb"]

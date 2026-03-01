@@ -1,7 +1,7 @@
 import json
 
-from shaboref.requester import Requester
-from shaboref.types import PikudEntry
+from pikud_haoref_bulb.requester import Requester
+from pikud_haoref_bulb.types import PikudEntry
 
 
 def test_entry_datatype(samplefile):
