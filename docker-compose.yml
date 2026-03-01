@@ -1,0 +1,7 @@
+services:
+  shaboref:
+    build:
+      context: .
+    environment:
+      - PIKUD_HAOREF_ZONE=${PIKUD_HAOREF_ZONE}
+      - CHECK_HOMEFRONT_DELAY=${CHECK_HOMEFRONT_DELAY:-60}
