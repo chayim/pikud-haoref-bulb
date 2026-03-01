@@ -36,13 +36,7 @@ CLI flags override environment variables.  Your city name *must* match the Hebre
 
 ### Via docker compose
 
-1. Clone the repository:
-
-```sh
-git clone <repo-url> && cd pikud_haoref_bulb
-```
-
-2. Set your city, API polling delay (in seconds), build, and run
+Set your city, API polling delay (in seconds), build, and run
 
 ```sh
 
