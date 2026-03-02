@@ -1,28 +1,30 @@
 from __future__ import annotations
 
+from typing import Optional
+
 from pikud_haoref_bulb.types import PikudEntry, PikudState
 from yeelight import Bulb
 
 
 class Notify:
-    _last_state = PikudEntry
+    _last_state: Optional[PikudEntry] = None
     _bulbs: list[str] = []
 
     def __init__(self, bulbs: list[str]):
         self.bulbs = bulbs
 
     def notify(self, status: PikudEntry) -> None:
-        if self._last_state.rid == status.rid:
+        if self._last_state is not None and self._last_state.rid == status.rid:
             return
 
-        match self._last_state.category:
-            case PikudState.LEAVE_THE_MAMAD:
+        match status.category:
+            case PikudState.LEAVE_THE_MAMAD.value:
                 self.green()
-            case PikudState.EARLY_WARNING:
+            case PikudState.EARLY_WARNING.value:
                 self.yellow()
-            case PikudState.ROCKETS:
+            case PikudState.ROCKETS.value:
                 self.red()
-            case PikudState.NO_INTERNET:
+            case PikudState.NO_INTERNET.value:
                 self.blue()
             case _:
                 self.white()

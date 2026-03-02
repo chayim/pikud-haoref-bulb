@@ -47,6 +47,24 @@ class PikudEntry:
         )
 
     @classmethod
+    def no_alerts(cls) -> "PikudEntry":
+        now = datetime.now()
+        return cls(
+            data="",
+            date=now.date(),
+            time=now.time(),
+            alert_date=now,
+            category=PikudState.LEAVE_THE_MAMAD.value,
+            category_desc="No active alerts",
+            matrix_id=0,
+            rid=-1,
+            name_he="",
+            name_en="",
+            name_ar="",
+            name_ru="",
+        )
+
+    @classmethod
     def from_dict(cls, raw: dict[str, Any]) -> "PikudEntry":
         return cls(
             data=raw["data"],

@@ -5,6 +5,7 @@ import click
 from loguru import logger
 from pikud_haoref_bulb.notify import Notify
 from pikud_haoref_bulb.requester import Requester
+from pikud_haoref_bulb.types import PikudEntry
 
 
 async def _poll_loop(requester: Requester, zone: str, delay: int) -> None:
@@ -18,6 +19,8 @@ async def _status_loop(status: list[Any], notify: Notify) -> None:
         if status:
             latest = status[-1]
             notify.notify(latest)
+        else:
+            notify.notify(PikudEntry.no_alerts())
         await asyncio.sleep(1)
 
 

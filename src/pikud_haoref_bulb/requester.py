@@ -1,3 +1,5 @@
+import json
+
 import httpx
 from loguru import logger
 from pikud_haoref_bulb.types import PikudEntry
@@ -33,7 +35,7 @@ class Requester:
 
                 self._status = response.json()
                 return self._status
-        except (httpx.HTTPError, httpx.StreamError) as exc:
+        except (httpx.HTTPError, httpx.StreamError, json.JSONDecodeError) as exc:
             logger.warning(f"Request failed: {exc}")
             entry = PikudEntry.no_internet()
             self._status.clear()
